@@ -95,6 +95,14 @@ col3.metric("Max", f"{max_selected:,}")
 col4.metric("Min", f"{min_selected:,}")
 
 # -----------------------------
+# Trendline warning if too many categories selected
+# # -----------------------------
+if show_trendlines and len(categories) > 3:
+    st.warning(
+        "Trendlines are disabled to reduce visual clutter. To display trendlines, select 3 or fewer categories."
+    )
+
+# -----------------------------
 # Plot
 # -----------------------------
 fig, ax = plt.subplots(figsize=(14, 4.2))
@@ -136,6 +144,7 @@ plt.xticks(rotation=45)
 ax.legend(bbox_to_anchor=(1.01, 1), loc="upper left", frameon=False)
 plt.tight_layout()
 st.pyplot(fig)
+
 
 # -----------------------------
 # Explicit Note
