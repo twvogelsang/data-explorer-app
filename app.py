@@ -55,19 +55,26 @@ df = df.sort_values("Attribute")
 # Filters
 # -----------------------------
 with st.expander("Filters", expanded=False):
-    categories = st.multiselect(
-        "Categories",
-        options=sorted(df["Category"].unique()),
-        default=sorted(df["Category"].unique()),
-    )
+    col_f1, col_f2, col_f3 = st.columns(
+        [2, 2, 1]
+    )  # wider main columns, smaller third column
 
-    semesters = st.multiselect(
-        "Semesters",
-        options=ordered_semesters,
-        default=ordered_semesters,
-    )
+    with col_f1:
+        categories = st.multiselect(
+            "Categories",
+            options=sorted(df["Category"].unique()),
+            default=sorted(df["Category"].unique()),
+        )
 
-    show_trendlines = st.checkbox("Trendlines", value=False)
+    with col_f2:
+        semesters = st.multiselect(
+            "Semesters",
+            options=ordered_semesters,
+            default=ordered_semesters,
+        )
+
+    with col_f3:
+        show_trendlines = st.checkbox("Trendlines", value=False)
 
 filtered_df = df[
     (df["Category"].isin(categories)) & (df["Attribute"].isin(semesters))
